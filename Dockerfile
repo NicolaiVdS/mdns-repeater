@@ -1,7 +1,7 @@
 FROM alpine:latest
 
 # Install build dependencies
-RUN apk add --no-cache build-base
+RUN apk add --no-cache build-base avahi dbus
 
 # Copy mdns-repeater.c source file
 RUN wget -O /mdns-repeater.c https://raw.githubusercontent.com/geekman/mdns-repeater/refs/heads/master/mdns-repeater.c 
