@@ -12,6 +12,9 @@ RUN gcc /mdns-repeater.c -o /usr/local/bin/mdns-repeater -DHGVERSION=\"1.0.0\"
 # Clean up build dependencies to reduce image size
 RUN apk del build-base && rm -rf /var/cache/apk/* /mdns-repeater.c
 
-# Set entrypoint to run mdns-repeater with configurable interfaces
-ENTRYPOINT ["/usr/local/bin/mdns-repeater", "-f"]
-CMD ["eth0", "docker0"]
+# Add entrypoint script
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+# Set entrypoint to handle INTERFACES environment variable
+ENTRYPOINT ["/entrypoint.sh"]
